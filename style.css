@@ -1,0 +1,38 @@
+body {
+	color: white;
+	font-size: 18px;
+}
+
+.container {
+	width: 600px;
+	margin: 0px auto;
+	background-color: #8bc34a;
+	padding: 15px;
+}
+
+.container h1 {
+	text-align: center;
+	color: blue;
+}
+
+.container table {
+	width: 100%;
+	border: solid #2198ed 1px;
+	margin-bottom: 20px;
+}
+
+.container table td {
+	padding: 6px;
+}
+
+td.title {
+	width: 35%;
+}
+
+table td input, table td select {
+	width: 90%;
+}
+
+table td input:hover {
+	background-color: yellow;
+}

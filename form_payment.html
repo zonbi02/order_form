@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1">
+	<title>Quan Ly Form Payment - PayDay for Month</title>
+	<link rel="stylesheet" type="text/css" href="style.css">
+</head>
+<body>
+<form method="post">
+<div class="container">
+	<h1>Purchase Order Form</h1>
+	<p>Product Information</p>
+	<table border="1">
+		<tr>
+			<td class="title">Product:</td>
+			<td>
+				<select required id="product_id" onchange="selectProduct()">
+					<option value="">Select</option>
+					<option value="650">Comfort Sleeper</option>
+					<option value="975">Morgan Kids Bed</option>
+					<option value="480">Entertainment Cabinet</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="title">Unit Price:</td>
+			<td>
+				<input disabled required type="number" name="unit_price" id="unit_price_id" onkeyup="updateTotalPrice()">
+			</td>
+		</tr>
+		<tr>
+			<td class="title">Quantity:</td>
+			<td>
+				<input disabled required type="number" name="quantity" id="quantity_id" onkeyup="updateTotalPrice()">
+			</td>
+		</tr>
+		<tr>
+			<td class="title">Total Price:</td>
+			<td>
+				<input disabled required type="number" name="total_price" id="total_price_id">
+			</td>
+		</tr>
+	</table>
+	<p>Shipping Information</p>
+	<table border="1">
+		<tr>
+			<td class="title">Full Name:</td>
+			<td>
+				<input required type="text" name="fullname" id="fullname_id">
+			</td>
+		</tr>
+		<tr>
+			<td class="title">Shipping Address:</td>
+			<td>
+				<input required type="text" name="shipping_address" id="shipping_address_id">
+			</td>
+		</tr>
+		<tr>
+			<td class="title">Credit Card:</td>
+			<td>
+				<select required  name="credit_card" id="credit_card_id" onchange="updateCreditCard()">
+					<option value="">Select</option>
+					<option value="650">VISA</option>
+					<option value="975">Master Card</option>
+					<option value="480">Merican Express</option>
+				</select>
+			</td>
+		</tr>
+		<tr>
+			<td class="title">Credit Card Number:</td>
+			<td>
+				<input disabled required type="text" name="credit_card_number" id="credit_card_number_id" pattern="[0-9]{4}-[0-9]{4}-[0-9]{4}-[0-9]{4}" maxlength="19" onkeyup="updateCreditCardNumber()">
+			</td>
+		</tr>
+	</table>
+	<span>
+		<button type="submit">Submit</button>
+		<button type="reset">Reset</button>
+	</span>
+</div>
+</form>
+
+<script type="text/javascript">
+	//Mapping tags (html input) <-> object js
+	var productTag = document.getElementById('product_id')
+	var unitPriceTag = document.getElementById('unit_price_id')
+	var quantityTag = document.getElementById('quantity_id')
+	var totalPriceTag = document.getElementById('total_price_id')
+	var fullnameTag = document.getElementById('fullname_id')
+	var addressTag = document.getElementById('shipping_address_id')
+	var creditCardTag = document.getElementById('credit_card_id')
+	var creditCardNumberTag = document.getElementById('credit_card_number_id')
+
+	function selectProduct() {
+		product = productTag.value
+		if(product == '') {
+			//disable
+			unitPriceTag.disabled = true
+			quantityTag.disabled = true
+		} else {
+			//enable
+			unitPriceTag.disabled = false
+			quantityTag.disabled = false
+		}
+	}
+
+	function updateCreditCard() {
+		creditCard = creditCardTag.value 
+		if(creditCard == '') {
+			creditCardNumberTag.disabled = true
+		} else {
+			creditCardNumberTag.disabled = false
+		}
+	}
+
+	function updateTotalPrice() {
+		unitPrice = unitPriceTag.value
+		quantity = quantityTag.value
+
+		totalPriceTag.value = unitPrice * quantity
+	}
+
+	function updateCreditCardNumber() {
+		number = creditCardNumberTag.value
+
+		//them 1 - 2 dieu kien -> on hon -> suy nghi lam them.
+
+		number = number.split('-').join('')
+
+		newNum = ''
+
+		for (var i = 0; i < number.length; i++) {
+			newNum += number[i]
+			if((i+1)%4 == 0 && i < 15) {
+				newNum += '-'
+			}
+		}
+
+		creditCardNumberTag.value = newNum
+	}
+</script>
+</body>
+</html>
